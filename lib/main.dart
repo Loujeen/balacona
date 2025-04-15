@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:testttt/SplashScreen.dart';
-import 'package:testttt/LoginSignup.dart';
+
+
 
 
 void main() {
@@ -13,6 +12,6 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: FirebaseAuth.instance.currentUser==null? SplashScreen():LoginSignup()
+
       );  }
 }
