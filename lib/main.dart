@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:testttt/Profile/edit_information.dart';
 import 'package:testttt/Register/registerScreen.dart';
-import 'package:testttt/LoginSignup.dart';
-
-
 import 'App_Colors.dart';
+import 'Home_Screen/Home_Screen.dart';
+import 'LoginSignup.dart';
+import 'Profile/edit_information.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-      initialRoute: LoginSignup.routeName,
+      initialRoute: RegisterScreen.routeName,
       routes: {
         RegisterScreen.routeName: (context) => RegisterScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(),
+        LoginSignup.routeName: (context) => LoginSignup(),
         EditInformationScreen.routeName: (context) => EditInformationScreen(),
-        LoginSignup.routeName: (context) => LoginSignup()
 
       },
 
