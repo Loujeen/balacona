@@ -279,6 +279,10 @@ class _EditInformationScreenState extends State<EditInformationScreen> {
                         ),
                       ),
                       onPressed: () {
+                        isAboutEditable=false;
+                        isPasswordEditable=false;
+                        isPhoneEditable=false;
+                        isEmailEditable=false;
                         // Save logic here
                       },
                       child: const Text(
