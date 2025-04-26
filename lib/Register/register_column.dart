@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/App_Colors.dart';
+import 'package:testttt/Home_Screen/Home_Screen.dart';
 
 class registerColumn extends StatelessWidget {
   const registerColumn({super.key});
@@ -87,13 +88,13 @@ class registerColumn extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColors.primaryDarkColor)
                   ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                  contentPadding: EdgeInsets.symmetric(vertical: 20),
                 ),
               ),
                SizedBox(height:MediaQuery.of(context).size.height*0.02),
               RichText(
                 textAlign: TextAlign.center,
-                text: const TextSpan(
+                text: TextSpan(
                   children: [
                     TextSpan(
                       text: 'By signing you agree to our ',
@@ -115,14 +116,16 @@ class registerColumn extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: 16),
               backgroundColor: AppColors.primaryDarkColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            onPressed: () {},
-            child: const Text(
+            onPressed: () {
+              Navigator.of(context).pushNamed(HomeScreen.routeName);
+            },
+            child: Text(
               'Sign up',
               style: TextStyle(fontSize: 18,color: AppColors.LightButtonColor),
             ),
@@ -139,7 +142,7 @@ class registerColumn extends StatelessWidget {
               onTap: () {
                 // Navigate to login screen
               },
-              child: const Text(
+              child: Text(
                 'Login',
                 style: TextStyle(
                   color: AppColors.primaryDarkColor,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/App_Colors.dart';
 
+import 'Register/registerScreen.dart';
+
 
 class LoginSignup extends StatelessWidget {
   const LoginSignup({Key? key}) : super(key: key);
@@ -80,6 +82,7 @@ class LoginSignup extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      Navigator.of(context).pushNamed(RegisterScreen.routeName);
                       // Sign up logic here
                     },
                     child: const Text(
