@@ -12,86 +12,117 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: HomeDrawer(),
-      backgroundColor: const Color(0xFFF0FFE7),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF0FFE7),
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Balacona',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF2B8C50),
+    return Stack(
+      children: [
+        Scaffold(
+          drawer: HomeDrawer(),
+          backgroundColor: const Color(0xFFF0FFE7),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFF0FFE7),
+            elevation: 0,
+            centerTitle: true,
+            title: const Text(
+              'Balacona',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2B8C50),
+              ),
+            ),
           ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          print('Tapped on Winter');
+                        },
+                        child: const CategoryTile(
+                          title: 'Winter',
+                          imageUrl: 'assets/images/pot.png',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print('Tapped on Summer');
+                        },
+                        child: const CategoryTile(
+                          title: 'Summer',
+                          imageUrl: 'assets/images/pot.png',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print('Tapped on Spring');
+                        },
+                        child: const CategoryTile(
+                          title: 'Spring',
+                          imageUrl: 'assets/images/pot.png',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print('Tapped on Autumn');
+                        },
+                        child: const CategoryTile(
+                          title: 'Autumn',
+                          imageUrl: 'assets/images/pot.png',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      print('Tapped on Winter');
-                    },
-                    child: const CategoryTile(
-                      title: 'Winter',
-                      imageUrl: 'assets/images/pot.png',
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print('Tapped on Summer');
-                    },
-                    child: const CategoryTile(
-                      title: 'Summer',
-                      imageUrl: 'assets/images/pot.png',
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print('Tapped on Rain');
-                    },
-                    child: const CategoryTile(
-                      title: 'Spring',
-                      imageUrl: 'assets/images/pot.png',
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print('Tapped on Autumn');
-                    },
-                    child: const CategoryTile(
-                      title: 'Autumn',
-                      imageUrl: 'assets/images/pot.png',
-                    ),
-                  ),
-                ],
+        ),
+        // 📸 Camera Button Positioned
+        Positioned(
+          bottom: 30,
+          right: 20,
+          child: SizedBox(
+            width: 60,
+            height: 60,
+            child: ElevatedButton(
+              onPressed: () {
+                print('Camera button pressed');
+                // TODO: Add navigation to camera screen if needed
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2B8C50), // or your AppColors.GreenColor
+                shape: const CircleBorder(),
+                padding: EdgeInsets.zero,
+                side: const BorderSide(color: Color(0xFF0D5D40), width: 3), // or AppColors.primaryDarkColor
+                elevation: 8,
+              ),
+              child: const Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+                size: 30,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
