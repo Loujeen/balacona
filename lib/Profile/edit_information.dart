@@ -6,6 +6,7 @@ class EditInformationScreen extends StatefulWidget {
   const EditInformationScreen({super.key});
   static const String routeName = 'EditInformationScreen';
 
+
   @override
   State<EditInformationScreen> createState() => _EditInformationScreenState();
 }
@@ -29,8 +30,6 @@ class _EditInformationScreenState extends State<EditInformationScreen> {
     phoneController.text = "01012345678";
     aboutController.text = "CS student and plant lover 🌿";
   }
-
-
 
   @override
   Widget build(BuildContext context) {

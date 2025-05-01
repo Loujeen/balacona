@@ -5,6 +5,7 @@ import 'Home_Screen/Home_Screen.dart';
 import 'Home_Screen/know_about_plants_screen.dart';
 import 'LoginSignup.dart';
 import 'Profile/edit_information.dart';
+import 'Profile/profileScreen.dart';
 import 'search_screen.dart';
 
 void main() {
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         EditInformationScreen.routeName: (context) => EditInformationScreen(),
         SearchScreen.routeName: (context) => SearchScreen(),
         KnowAboutPlantsScreen.routeName: (context) => KnowAboutPlantsScreen(),
+        ProfileScreen.routeName: (context) => ProfileScreen()
       },
 
     );  }
