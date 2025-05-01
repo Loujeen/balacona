@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/App_Colors.dart';
+import 'package:testttt/LoginSignup.dart';
 import 'package:testttt/Register/register_column.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -19,7 +20,9 @@ class RegisterScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation:0,
           leading: IconButton(
-              onPressed:(){},
+              onPressed:(){
+                Navigator.of(context).pushNamed(LoginSignup.routeName);
+              },
               icon: Icon(Icons.arrow_back_ios_new_rounded ,
                 color: AppColors.primaryDarkColor,)),
           title: Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/Home_Screen/home_drawer.dart';
+import 'package:testttt/search_screen.dart';
 
 import '../App_Colors.dart';
 
@@ -46,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
               icon: const Icon(Icons.search, color: AppColors.primaryDarkColor),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(SearchScreen.routeName);
+              },
             )
           ],
         ),

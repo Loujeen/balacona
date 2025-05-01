@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../App_Colors.dart';
+import 'package:testttt/Home_Screen/Home_Screen.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -17,8 +18,8 @@ class HomeDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.primaryDarkColor,
               borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(30),
-                bottomLeft: Radius.circular(30)
+                  bottomRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(30)
               ),
             ),
             child: Center(
@@ -32,7 +33,7 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
           ),
-           SizedBox(height: MediaQuery.of(context).size.height*0.01),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           _buildDrawerItem(Icons.home, 'Home', context),
           _buildDrawerItem(Icons.photo_camera, 'Capture your plant', context),
           _buildDrawerItem(Icons.person, 'Profile', context),
@@ -51,17 +52,40 @@ class HomeDrawer extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: AppColors.primaryDarkColor,
-          fontWeight: FontWeight.w900,
-          fontSize: 16
+            color: AppColors.primaryDarkColor,
+            fontWeight: FontWeight.w900,
+            fontSize: 16
         ),
       ),
       onTap: () {
-        // TODO: Add navigation logic here
-        Navigator.pop(context);
+        Navigator.pop(context); // close the drawer
+
+        switch (title) {
+          case 'Home':
+            Navigator.of(context).pushNamed(HomeScreen.routeName);;
+            break;
+          case 'Capture your plant':
+            Navigator.of(context).pushNamed('/capture');
+            break;
+          case 'Profile':
+            Navigator.of(context).pushNamed('/profile');
+            break;
+          case 'Communities':
+            Navigator.of(context).pushNamed('/communities');
+            break;
+          case 'Play to win!':
+            Navigator.of(context).pushNamed('/game');
+            break;
+          case 'Info':
+            Navigator.of(context).pushNamed('/info');
+            break;
+          case 'My Plants':
+            Navigator.of(context).pushNamed('/my-plants');
+            break;
+        }
       },
     );
-      // Drawer(
+// Drawer(
     //   child: ListView(
     //     padding: EdgeInsets.zero,
     //     children: [
