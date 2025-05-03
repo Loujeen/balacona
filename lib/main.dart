@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:testttt/Home_Screen/Popularplant.dart';
 import 'package:testttt/Register/registerScreen.dart';
 import 'App_Colors.dart';
 import 'Home_Screen/Home_Screen.dart';
-import 'Home_Screen/LearnAboutPlants.dart';
 import 'Home_Screen/know_about_plants_screen.dart';
 import 'LoginSignup.dart';
 import 'Profile/edit_information.dart';
 import 'search_screen.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-      initialRoute:LearnAboutPlantScreen.routeName,
+      initialRoute: KnowAboutPlantsScreen.routeName,
       routes: {
         RegisterScreen.routeName: (context) => RegisterScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
@@ -28,8 +25,6 @@ class MyApp extends StatelessWidget {
         EditInformationScreen.routeName: (context) => EditInformationScreen(),
         SearchScreen.routeName: (context) => SearchScreen(),
         KnowAboutPlantsScreen.routeName: (context) => KnowAboutPlantsScreen(),
-        PopularPlantScreen.routeName: (context) => PopularPlantScreen(),
-        LearnAboutPlantScreen.routeName:(context) =>LearnAboutPlantScreen(),
       },
 
     );  }
