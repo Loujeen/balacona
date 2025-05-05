@@ -31,7 +31,7 @@ class RegisterScreen extends StatelessWidget {
               ,fontWeight: FontWeight.w300),),
           centerTitle: true,),
 
-      body: registerColumn(),)
+      body: RegisterColumn(),)
       ]
 
     );

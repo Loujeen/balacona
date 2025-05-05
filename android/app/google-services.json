@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46596260129",
+    "project_id": "balacona-652ca",
+    "storage_bucket": "balacona-652ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46596260129:android:8fa671540f733df7477e60",
+        "android_client_info": {
+          "package_name": "com.example.testttt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46596260129-uta1ljt4l1369aucv92ov2h7v2m7d3ro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiIMgnGE8lk6xpP2SR5dj0EmgTBNYwTZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46596260129-uta1ljt4l1369aucv92ov2h7v2m7d3ro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
