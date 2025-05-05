@@ -5,7 +5,7 @@ import '../widgets/back_button_circle.dart';
 
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
-
+  static const String routeName = 'LocationScreen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

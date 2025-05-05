@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/Profile/profileScreen.dart';
+import 'package:testttt/screens/community_screen.dart';
 
 import '../App_Colors.dart';
 import 'package:testttt/Home_Screen/Home_Screen.dart';
@@ -72,7 +73,7 @@ class HomeDrawer extends StatelessWidget {
             Navigator.of(context).pushNamed(ProfileScreen.routeName);
             break;
           case 'Communities':
-            Navigator.of(context).pushNamed('/communities');
+            Navigator.of(context).pushNamed(CommunityScreen.routeName);
             break;
           case 'Play to win!':
             Navigator.of(context).pushNamed('/game');

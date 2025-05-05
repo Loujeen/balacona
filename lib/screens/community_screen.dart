@@ -5,7 +5,7 @@ import '../models/post.dart';
 
 class CommunityScreen extends StatelessWidget {
   const CommunityScreen({super.key});
-
+  static const String routeName = 'communityScreen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

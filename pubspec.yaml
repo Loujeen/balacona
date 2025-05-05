@@ -37,7 +37,9 @@ dependencies:
   flutter_native_splash: ^2.4.6
   google_fonts:
   flutter_screenutil:
-
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.3
+  firebase_auth_web: ^5.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

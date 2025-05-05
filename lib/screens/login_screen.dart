@@ -1,14 +1,58 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:testttt/App_Colors.dart';
 import '../widgets/custom_text_field.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+  static const String routeName = 'LoginScreen';
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  bool isLoading = false;
+
+  Future<void> login() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text,
+      );
+
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Logged in successfully')),
+      );
+
+      // Replace with your HomeScreen navigation
+      // Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? 'Login failed')),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryLightColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -20,12 +64,12 @@ class LoginScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 320.h,
                     decoration: const BoxDecoration(
-                      color: Color(0xFFE8F5E9),
+                      color: AppColors.WhiteColor,
                     ),
                     child: Padding(
                       padding: EdgeInsets.only(top: 60.h),
                       child: Image.asset(
-                        'assets/images/plant.png',
+                        'assets/images/login.jpeg',
                         height: 250.h,
                         fit: BoxFit.contain,
                       ),
@@ -36,8 +80,8 @@ class LoginScreen extends StatelessWidget {
                   top: 40.h,
                   left: 20.w,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.arrow_back, color: Colors.green.shade800),
+                    backgroundColor: AppColors.primaryLightColor,
+                    child: Icon(Icons.arrow_back, color: AppColors.primaryDarkColor),
                   ),
                 ),
               ],
@@ -45,17 +89,17 @@ class LoginScreen extends StatelessWidget {
             Text(
               'Balacona',
               style: GoogleFonts.poppins(
-                fontSize: 28.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.green.shade900,
+                fontSize: 50,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primaryDarkColor,
               ),
             ),
             SizedBox(height: 4.h),
             Text(
               'Login to your account',
               style: GoogleFonts.poppins(
-                fontSize: 14.sp,
-                color: Colors.grey.shade600,
+                fontSize: 14,
+                color: AppColors.DarkGreyColor,
               ),
             ),
             SizedBox(height: 20.h),
@@ -64,11 +108,13 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTextField(
-                    hintText: 'Name',
-                    icon: Icons.person_outline,
+                    controller: emailController,
+                    hintText: 'Email',
+                    icon: Icons.email_outlined,
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
+                    controller: passwordController,
                     hintText: 'Password',
                     icon: Icons.lock_outline,
                     obscureText: true,
@@ -79,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                       Checkbox(
                         value: true,
                         onChanged: (_) {},
-                        activeColor: Colors.green.shade800,
+                        activeColor: AppColors.primaryDarkColor,
                       ),
                       Text(
                         'Remember me',
@@ -90,7 +136,7 @@ class LoginScreen extends StatelessWidget {
                         'Forget Password?',
                         style: GoogleFonts.poppins(
                           fontSize: 12.sp,
-                          color: Colors.green.shade800,
+                          color: AppColors.primaryDarkColor,
                           decoration: TextDecoration.underline,
                         ),
                       ),
@@ -102,13 +148,15 @@ class LoginScreen extends StatelessWidget {
                     height: 48.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green.shade800,
+                        backgroundColor: AppColors.primaryDarkColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                       ),
-                      onPressed: () {},
-                      child: Text(
+                      onPressed: isLoading ? null : login,
+                      child: isLoading
+                          ? CircularProgressIndicator(color: Colors.white)
+                          : Text(
                         'Login',
                         style: GoogleFonts.poppins(
                           color: Colors.white,
@@ -126,12 +174,15 @@ class LoginScreen extends StatelessWidget {
                         style: GoogleFonts.poppins(fontSize: 13.sp),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Navigate to Register screen
+                          // Navigator.pushNamed(context, RegisterScreen.routeName);
+                        },
                         child: Text(
                           'Sign up',
                           style: GoogleFonts.poppins(
                             fontSize: 13.sp,
-                            color: Colors.green.shade800,
+                            color: AppColors.primaryDarkColor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -148,7 +199,6 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-// ClipPath for plant image curve
 class BottomWaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
