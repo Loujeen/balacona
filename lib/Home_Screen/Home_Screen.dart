@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:testttt/Home_Screen/LearnAboutPlants.dart';
+import 'package:testttt/Home_Screen/Popularplant.dart';
 import 'package:testttt/Home_Screen/home_drawer.dart';
 import 'package:testttt/search_screen.dart';
 
 import '../App_Colors.dart';
+import 'know_about_plants_screen.dart';
 
 class HomeScreen extends StatefulWidget {
    const HomeScreen({super.key});
@@ -54,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -88,18 +91,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _imageBox('assets/images/pot.png'),
-                    const SizedBox(width: 10),
-                    _imageBox('assets/images/pot.png'),
-                    const SizedBox(width: 10),
-                    _imageBox('assets/images/pot.png'),
-                    const SizedBox(width: 10),
-                    _imageBox('assets/images/pot.png'),
-                    const SizedBox(width: 10),
-                    _imageBox('assets/images/pot.png'),
-                    const SizedBox(width: 10),
-                    _imageBox('assets/images/pot.png'),
-                    const SizedBox(width: 10),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName);
+                        },
+                        child: _imageBox('assets/images/pot.png')),
+                    SizedBox(width: 10),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName);
+                        },
+                        child: _imageBox('assets/images/pot.png')),
+                    SizedBox(width: 10),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName);
+                        },
+                        child: _imageBox('assets/images/pot.png')),
+                    SizedBox(width: 10),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName);
+                        },
+                        child: _imageBox('assets/images/pot.png')),
+                    SizedBox(width: 10),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName);
+                        },
+                        child: _imageBox('assets/images/pot.png')),
+                    SizedBox(width: 10),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName);
+                        },
+                        child: _imageBox('assets/images/pot.png')),
+                    SizedBox(width: 10),
                   ],
                 ),
               ),
@@ -116,20 +143,59 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _learnPlantItem(
-                      title: 'Coleus',
-                      imageUrl: 'assets/images/pot.png',
-                      selected: true,
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(LearnAboutPlantScreen.routeName);
+                      },
+                      child: _learnPlantItem(
+                        title: 'Coleus',
+                        imageUrl: 'assets/images/pot.png',
+                        selected: true,
+                      ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width*0.02),
-                    _learnPlantItem(
-                      title: 'Common Yarrow',
-                      imageUrl: 'assets/images/pot.png',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(LearnAboutPlantScreen.routeName);
+                      },
+                      child: _learnPlantItem(
+                        title: 'Coleus',
+                        imageUrl: 'assets/images/pot.png',
+                        selected: true,
+                      ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width*0.02),
-                    _learnPlantItem(
-                      title: 'Lavender',
-                      imageUrl: 'assets/images/pot.png',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(LearnAboutPlantScreen.routeName);
+                      },
+                      child: _learnPlantItem(
+                        title: 'Coleus',
+                        imageUrl: 'assets/images/pot.png',
+                        selected: true,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.02),
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(LearnAboutPlantScreen.routeName);
+                      },
+                      child: _learnPlantItem(
+                        title: 'Coleus',
+                        imageUrl: 'assets/images/pot.png',
+                        selected: true,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.02),
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(LearnAboutPlantScreen.routeName);
+                      },
+                      child: _learnPlantItem(
+                        title: 'Coleus',
+                        imageUrl: 'assets/images/pot.png',
+                        selected: true,
+                      ),
                     ),
                   ],
                 ),
@@ -146,20 +212,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _scrollablePlantCard(
-                      'Yarrow',
-                      'Summer plant,less water required for growth',
-                      'assets/images/pot.png',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(PopularPlantScreen.routeName);
+                      },
+                      child: _scrollablePlantCard(
+                        'Yarrow',
+                        'Summer plant,less water required for growth',
+                        'assets/images/pot.png',
+                      ),
                     ),
-                    _scrollablePlantCard(
-                      'Ageratum',
-                      'Winter plant, minimum\nwater needed',
-                      'assets/images/pot.png',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(PopularPlantScreen.routeName);
+                      },
+                      child: _scrollablePlantCard(
+                        'Ageratum',
+                        'Winter plant, minimum\nwater needed',
+                        'assets/images/pot.png',
+                      ),
                     ),
-                    _scrollablePlantCard(
-                      'Lavender',
-                      'Lovely scent and drought-resistant',
-                      'assets/images/pot.png',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(PopularPlantScreen.routeName);
+                      },
+                      child: _scrollablePlantCard(
+                        'Lavender',
+                        'Lovely scent and drought-resistant',
+                        'assets/images/pot.png',
+                      ),
                     ),
                   ],
                 ),
@@ -176,10 +257,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _scrollablePlantCard(
-                      'Yarrow',
-                      'Summer plant,less water required for growth',
-                      'assets/images/pot.png',
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(PopularPlantScreen.routeName);
+                      },
+                      child: _scrollablePlantCard(
+                        'Yarrow',
+                        'Summer plant,less water required for growth',
+                        'assets/images/pot.png',
+                      ),
                     ),
                     _scrollablePlantCard(
                       'Ageratum',
@@ -223,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        )
+        ),
     ],
     );
   }

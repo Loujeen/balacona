@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/Home_Screen/home_drawer.dart';
 
+import 'App_Colors.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
   static const String routeName = 'SearchScreen';
@@ -105,16 +107,15 @@ class _SearchScreenState extends State<SearchScreen> {
             child: ElevatedButton(
               onPressed: () {
                 print('Camera button pressed');
-                // TODO: Add navigation to camera screen if needed
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2B8C50), // or your AppColors.GreenColor
-                shape: const CircleBorder(),
+                backgroundColor: AppColors.GreenColor,
+                shape: CircleBorder(),
                 padding: EdgeInsets.zero,
-                side: const BorderSide(color: Color(0xFF0D5D40), width: 3), // or AppColors.primaryDarkColor
+                side: BorderSide(color: AppColors.primaryDarkColor , width: 3),
                 elevation: 8,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.camera_alt,
                 color: Colors.white,
                 size: 30,

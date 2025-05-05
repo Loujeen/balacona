@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:testttt/App_Colors.dart';
+import 'package:testttt/Home_Screen/Home_Screen.dart';
+import 'package:testttt/Register/registerScreen.dart';
 import '../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -62,8 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   clipper: BottomWaveClipper(),
                   child: Container(
                     width: double.infinity,
-                    height: 320.h,
-                    decoration: const BoxDecoration(
+                    height: 410,
+                    decoration: BoxDecoration(
                       color: AppColors.WhiteColor,
                     ),
                     child: Padding(
@@ -79,9 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Positioned(
                   top: 40.h,
                   left: 20.w,
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.primaryLightColor,
-                    child: Icon(Icons.arrow_back, color: AppColors.primaryDarkColor),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.WhiteColor,
+                      child: Icon(Icons.arrow_back_ios_rounded, color: AppColors.primaryDarkColor),
+                    ),
                   ),
                 ),
               ],
@@ -149,11 +156,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryDarkColor,
+                        minimumSize: Size(double.infinity, 66),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      onPressed: isLoading ? null : login,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(HomeScreen.routeName);
+                        },
                       child: isLoading
                           ? CircularProgressIndicator(color: Colors.white)
                           : Text(
@@ -175,8 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Navigate to Register screen
-                          // Navigator.pushNamed(context, RegisterScreen.routeName);
+                          Navigator.of(context).pushNamed(RegisterScreen.routeName);
                         },
                         child: Text(
                           'Sign up',

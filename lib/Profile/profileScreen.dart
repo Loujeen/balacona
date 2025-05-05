@@ -36,19 +36,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: TextProfileData(text: "Profile", textColor: AppColors.blackColor, fontSize: 22, fontWeight: FontWeight.w700),
+            title: TextProfileData(text: "Profile", textColor: AppColors.primaryDarkColor, fontSize: 22, fontWeight: FontWeight.w700),
             centerTitle: true,
             leading: IconButton(
                 onPressed: (){
                   Navigator.pop(context);
                 },
                 icon: Icon(
-                  Icons.arrow_back_ios_new_rounded
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColors.primaryDarkColor,
                 )),
           ),
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(50),
+              padding: EdgeInsets.all(25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,42 +90,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   // TextProfileData(text: "Edit Information", textColor: AppColors.blackColor, fontSize: 20, fontWeight: FontWeight.w500),
                   SizedBox(height: MediaQuery.of(context).size.height*0.01),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextProfileData(text: "Language", textColor: AppColors.blackColor, fontSize: 20, fontWeight: FontWeight.w500),
-                      IconButton(
-                          onPressed: (){
-                            showModalBottomSheet(context: context, builder: (context) {
-                              return LanguageBottomSheet();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColors.primaryDarkColor,
-                            size: 35,
-                          )
-                      ),
-                    ],
+                  InkWell(
+                    onTap: (){
+                      showModalBottomSheet(context: context, builder: (context) {
+                        return LanguageBottomSheet();
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextProfileData(text: "Language", textColor: AppColors.blackColor, fontSize: 20, fontWeight: FontWeight.w500),
+                        IconButton(
+                            onPressed: (){
+                              showModalBottomSheet(context: context, builder: (context) {
+                                return LanguageBottomSheet();
+                              });
+                            },
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColors.primaryDarkColor,
+                              size: 35,
+                            )
+                        ),
+                      ],
+                    ),
                   ),
                   // SizedBox(height: MediaQuery.of(context).size.height*0.01),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextProfileData(text: "Theme", textColor: AppColors.blackColor, fontSize: 20, fontWeight: FontWeight.w500),
-                      IconButton(
-                          onPressed: (){
-                            showModalBottomSheet(context: context, builder: (context) {
-                              return ThemeBottomSheet();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColors.primaryDarkColor,
-                            size: 35,
-                          )
-                      ),
-                    ],
+                  InkWell(
+                    onTap: (){
+                      showModalBottomSheet(context: context, builder: (context) {
+                        return ThemeBottomSheet();
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextProfileData(text: "Theme", textColor: AppColors.blackColor, fontSize: 20, fontWeight: FontWeight.w500),
+                        IconButton(
+                            onPressed: (){
+                              showModalBottomSheet(context: context, builder: (context) {
+                                return ThemeBottomSheet();
+                              });
+                            },
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColors.primaryDarkColor,
+                              size: 35,
+                            )
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.02),
                   TextProfileData(text: "Notification", textColor: AppColors.primaryDarkColor, fontSize: 20, fontWeight: FontWeight.w900),

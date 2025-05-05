@@ -18,12 +18,12 @@ class LearnAboutPlantScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back, color: AppColors.blackColor),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.primaryDarkColor),
         ),
         title: Text(
           'Learn about Plants',
           style: TextStyle(
-            color: AppColors.blackColor,
+            color: AppColors.primaryDarkColor,
             fontWeight: FontWeight.bold,
             fontSize: screenWidth * 0.05,
           ),
@@ -67,11 +67,11 @@ class LearnAboutPlantScreen extends StatelessWidget {
             SizedBox(height: screenHeight * 0.04),
 
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis dictum egestas dolor egestas. Netus pharetra, rhoncus tortor duis sit. '
-                  'In ipsum diam orci morbi ultrices massa amet. Aenean urna phasellus eget vestibulum, vulputate dui auctor sed est. '
+              textAlign: TextAlign.center,
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis dictum egestas dolor egestas. Netus pharetra, rhoncus tortor duis sit. ''In ipsum diam orci morbi ultrices massa amet. Aenean urna phasellus eget vestibulum, vulputate dui auctor sed est. '
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis dictum egestas dolor egestas.',
               style: TextStyle(
-                fontSize: screenWidth * 0.035,
+                fontSize: 16,
                 height: 1.6,
               ),
             ),

@@ -19,10 +19,10 @@ class HomeDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
             decoration: BoxDecoration(
               color: AppColors.primaryDarkColor,
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(30),
-                  bottomLeft: Radius.circular(30)
-              ),
+              // borderRadius: BorderRadius.only(
+              //     bottomRight: Radius.circular(30),
+              //     bottomLeft: Radius.circular(30)
+              // ),
             ),
             child: Center(
               child: Text(

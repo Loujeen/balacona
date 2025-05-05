@@ -6,11 +6,13 @@ import 'package:testttt/screens/community_screen.dart';
 import 'package:testttt/screens/home_location_screen.dart';
 import 'package:testttt/screens/location_screen.dart';
 import 'package:testttt/screens/login_screen.dart';
-import 'App_Colors.dart';
 import 'Home_Screen/Home_Screen.dart';
+import 'Home_Screen/LearnAboutPlants.dart';
+import 'Home_Screen/Popularplant.dart';
 import 'Home_Screen/know_about_plants_screen.dart';
 import 'LoginSignup.dart';
 import 'Profile/edit_information.dart';
+import 'Profile/profileScreen.dart';
 import 'search_screen.dart';
 import 'firebase_options.dart';
 
@@ -34,20 +36,21 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: LoginScreen.routeName,
+          initialRoute: LoginSignup.routeName,
           routes: {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
             LoginSignup.routeName: (context) => LoginSignup(),
-            EditInformationScreen.routeName: (context) =>
-                EditInformationScreen(),
+            EditInformationScreen.routeName: (context) => EditInformationScreen(),
             SearchScreen.routeName: (context) => SearchScreen(),
-            KnowAboutPlantsScreen.routeName: (context) =>
-                KnowAboutPlantsScreen(),
+            KnowAboutPlantsScreen.routeName: (context) => KnowAboutPlantsScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             LocationScreen.routeName: (context) => LocationScreen(),
             HomeLocationScreen.routeName: (context) => HomeLocationScreen(),
             CommunityScreen.routeName: (context) => CommunityScreen(),
+            ProfileScreen.routeName: (context) => ProfileScreen(),
+            LearnAboutPlantScreen.routeName: (context) => LearnAboutPlantScreen(),
+            PopularPlantScreen.routeName: (context) => PopularPlantScreen(),
           },
         );
       },

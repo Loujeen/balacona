@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:testttt/App_Colors.dart';
 
 class TabBarSection extends StatelessWidget {
   const TabBarSection({super.key});
@@ -7,12 +8,12 @@ class TabBarSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("For you", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp)),
-          Text("Following", style: TextStyle(color: Colors.grey[600], fontSize: 16.sp)),
+          Text("For you", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+          Text("Following", style: TextStyle(color: AppColors.DarkGreyColor, fontWeight: FontWeight.bold, fontSize: 19)),
         ],
       ),
     );

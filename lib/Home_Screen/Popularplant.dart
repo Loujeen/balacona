@@ -3,12 +3,12 @@ import 'package:testttt/App_Colors.dart';
 
 class PopularPlantScreen extends StatelessWidget {
   const PopularPlantScreen({super.key});
-  static String routeName = 'PopularPlantsScreen';
+  static const String routeName = 'PopularPlants';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // ✅ علشان الصورة تبقى ورا الـ AppBar
+      extendBodyBehindAppBar: true,
       backgroundColor: AppColors.primaryLightColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -25,137 +25,139 @@ class PopularPlantScreen extends StatelessWidget {
         title: Text(
           "Popular Plants",
           style: TextStyle(
-            fontSize: 22,
-            color: AppColors.blackColor,
+            fontSize: 20,
+            color: AppColors.primaryLightColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
       ),
-      body: Stack(
-    children: [
-
-    Container(
-    height: MediaQuery.of(context).size.height * 0.35,
-    width: double.infinity,
-    decoration: BoxDecoration(
-    image: DecorationImage(
-    image: AssetImage("assets/images/login_signup_bg.png"),
-    fit: BoxFit.cover,
-    ),
-    ),
-    ),
-
-
-    SingleChildScrollView(
-    child: Column(
-    children: [
-    SizedBox(height: kToolbarHeight + 40),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              // padding: EdgeInsets.only(top: 100),
+              height: MediaQuery.of(context).size.height * 0.30,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/login_signup_bg.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
 
 
-    Center(
-    child: Container(
-    width: MediaQuery.of(context).size.width*0.25,
-    height: MediaQuery.of(context).size.height*0.2,
-    decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(16),
-    border: Border.all(color: Colors.white, width: 4),
-    image: DecorationImage(
-    image: AssetImage("assets/images/pot.png"),
-    fit: BoxFit.cover,
-    ),
-    ),
-    ),
-    ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.20,),
+                  Center(
+                    child: Container(
+                      width: 190,
+                      height:190,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.white, width: 4),
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/pot.png"),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  ),
 
-    SizedBox(height: MediaQuery.of(context).size.height*0.025),
-
-
-    Center(
-    child: Column(
-    children: [
-    Text(
-    'Ginkgo',
-    style: TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.bold,
-    ),
-    ),
-    SizedBox(height: 4),
-    Text(
-    'Ginkgo biloba',
-    style: TextStyle(
-    fontSize: 16,
-    color: Colors.grey,
-    ),
-    ),
-    ],
-    ),
-    ),
-
-    SizedBox(height: MediaQuery.of(context).size.height*0.02),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.025),
 
 
-    Padding(
-    padding: EdgeInsets.symmetric(horizontal: 20.0),
-    child: Text(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-    'Turpis dictum egestas dolor egestas. Netus pharetra, '
-    'rhoncus tortor duis sit. In ipsum diam orci morbi ultrices '
-    'massa amet. Aenean urna phasellus eget vestibulum, '
-    'vulputate dui auctor sed est. Lorem ipsum dolor sit amet, '
-    'consectetur adipiscing elit. Turpis dictum egestas dolor egestas.',
-    style: TextStyle(
-    fontSize: 14,
-    height: 1.5,
-    ),
-    ),
-    ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          'Ginkgo',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Ginkgo biloba',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.DarkGreyColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
-    SizedBox(height: MediaQuery.of(context).size.height*0.02),
-
-
-    Padding(
-    padding: EdgeInsets.symmetric(horizontal: 20.0),
-    child: Text(
-    'Pictures of Ginkgo',
-    style: TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-    color: Colors.teal,
-    ),
-    ),
-    ),
-
-    SizedBox(height: 16),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.02),
 
 
-    SizedBox(
-    height: 100,
-    child: ListView(
-    scrollDirection: Axis.horizontal,
-    padding: EdgeInsets.symmetric(horizontal: 16),
-    children: [
-    buildSmallImage('assets/images/pot.png'),
-    buildSmallImage('assets/images/pot.png'),
-    buildSmallImage('assets/images/pot.png'),
-    ],
-    ),
-    ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                          'Turpis dictum egestas dolor egestas. Netus pharetra, '
+                          'rhoncus tortor duis sit. In ipsum diam orci morbi ultrices '
+                          'massa amet. Aenean urna phasellus eget vestibulum, '
+                          'vulputate dui auctor sed est. Lorem ipsum dolor sit amet, '
+                          'consectetur adipiscing elit. Turpis dictum egestas dolor egestas.',
+                      style: TextStyle(
+                        fontSize: 15,
+                        height: 1.7,
+                      ),
+                    ),
+                  ),
 
-    SizedBox(height: 24),
-    ],
-    ),
-    ),
-    ],
-    ),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.05),
+
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Pictures of Ginkgo',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryDarkColor,
+                        ),
+                      ),
+                    ),
+                  ),
+
+
+                  SizedBox(height: MediaQuery.of(context).size.height*0.02),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.1,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      children: [
+                        buildSmallImage('assets/images/pot.png'),
+                        buildSmallImage('assets/images/pot.png'),
+                        buildSmallImage('assets/images/pot.png'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
 
   Widget buildSmallImage(String url) {
     return Container(
-      margin: EdgeInsets.only(right: 12),
+      margin: EdgeInsets.only(right: 15),
       width: 80,
       height: 80,
       decoration: BoxDecoration(
@@ -168,3 +170,4 @@ class PopularPlantScreen extends StatelessWidget {
     );
   }
 }
+
