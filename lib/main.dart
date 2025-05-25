@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:testttt/Register/registerScreen.dart';
+import 'package:testttt/screens/GameScreen.dart';
 import 'package:testttt/screens/community_screen.dart';
 import 'package:testttt/screens/home_location_screen.dart';
 import 'package:testttt/screens/location_screen.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: LoginSignup.routeName,
+          initialRoute: GameScreen.routeName,
           routes: {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
@@ -51,6 +52,8 @@ class MyApp extends StatelessWidget {
             ProfileScreen.routeName: (context) => ProfileScreen(),
             LearnAboutPlantScreen.routeName: (context) => LearnAboutPlantScreen(),
             PopularPlantScreen.routeName: (context) => PopularPlantScreen(),
+            GameScreen.routeName: (context) => GameScreen(),
+
           },
         );
       },

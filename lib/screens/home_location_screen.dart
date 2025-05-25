@@ -1,6 +1,7 @@
 // lib/screens/home_location_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:testttt/App_Colors.dart';
 import '../widgets/back_button_circle.dart';
 
 class HomeLocationScreen extends StatelessWidget {
@@ -9,7 +10,7 @@ class HomeLocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEFF8F2),
+      backgroundColor: AppColors.primaryLightColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -25,7 +26,7 @@ class HomeLocationScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
-                color: Colors.green.shade700,
+                color: AppColors.primaryDarkColor,
               ),
             ),
           ),
@@ -35,7 +36,7 @@ class HomeLocationScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 22.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.green.shade900,
+              color: AppColors.primaryDarkColor,
             ),
           ),
           Text(
@@ -43,14 +44,14 @@ class HomeLocationScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
-              color: Colors.green.shade700,
+              color: AppColors.primaryDarkColor,
             ),
           ),
           SizedBox(height: 30.h),
           Container(
             padding: EdgeInsets.all(20.w),
             decoration: BoxDecoration(
-              color: Colors.green.shade700,
+              color: AppColors.primaryDarkColor,
               borderRadius: BorderRadius.circular(20.r),
             ),
             child: Column(
@@ -75,7 +76,7 @@ class HomeLocationScreen extends StatelessWidget {
         SizedBox(height: 20.h),
         Container(
           decoration: BoxDecoration(
-            color: Colors.green.shade600,
+            color: AppColors.primaryDarkColor,
             borderRadius: BorderRadius.circular(16.r),
           ),
           child: ListTile(
@@ -103,7 +104,7 @@ class HomeLocationScreen extends StatelessWidget {
             trailing: Icon(
               Icons.arrow_forward_ios,
               size: 18.sp,
-              color: Colors.white,
+              color: AppColors.WhiteColor,
             ),
             onTap: () {
               // TODO: Handle navigation to add place
