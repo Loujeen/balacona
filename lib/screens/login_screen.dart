@@ -2,9 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:testttt/App_Colors.dart';
 import 'package:testttt/Home_Screen/Home_Screen.dart';
 import 'package:testttt/Register/registerScreen.dart';
+import 'package:testttt/dialog_utils.dart';
+import 'package:testttt/firebase_utils.dart';
+import '../providers/auth_user_provider.dart';
 import '../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,36 +22,75 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
   bool isLoading = false;
 
   Future<void> login() async {
-    setState(() {
-      isLoading = true;
-    });
+    if (emailController.text.trim().isEmpty || passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email and password cannot be empty')),
+      );
+      return;
+    }
+
+    DialogUtils.showLoading(context: context, message: 'Logging in...');
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text,
       );
 
+      print("✅ Auth success. Now reading Firestore...");
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Logged in successfully')),
-      );
-
-      // Replace with your HomeScreen navigation
-      // Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-
-    } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message ?? 'Login failed')),
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
+      var user = await FirebaseUtils.readUserFromFireStore(credential.user?.uid ?? '')
+          .timeout(Duration(seconds: 10), onTimeout: () {
+        throw Exception("❌ Timeout while reading user data from Firestore.");
       });
+
+      if (user == null) {
+        DialogUtils.hideLoading(context);
+        DialogUtils.showMessage(
+          context: context,
+          title: 'Error',
+          content: 'No user found in Firestore for this UID.',
+          posActionName: 'Ok',
+        );
+        return;
+      }
+
+      // ✅ Set user in AuthUserProvider
+      Provider.of<AuthUserProvider>(context, listen: false).updateUser(user);
+
+      DialogUtils.hideLoading(context);
+
+      DialogUtils.showMessage(
+        context: context,
+        title: 'Success',
+        content: 'Login Successfully.',
+        posActionName: 'OK',
+        posAction: () {
+          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+        },
+      );
+      print("✅ Login Successfully.");
+    } on FirebaseAuthException catch (e) {
+      DialogUtils.hideLoading(context);
+      DialogUtils.showMessage(
+        context: context,
+        title: 'Auth Error',
+        content: e.message ?? 'Unknown Firebase Auth error',
+        posActionName: 'OK',
+      );
+      print("❌ Firebase Auth Error: ${e.code}");
+    } catch (e) {
+      DialogUtils.hideLoading(context);
+      DialogUtils.showMessage(
+        context: context,
+        title: 'Error',
+        content: e.toString(),
+        posActionName: 'OK',
+      );
+      print("❌ General Error: $e");
     }
   }
 
@@ -82,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   top: 40.h,
                   left: 20.w,
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: CircleAvatar(
@@ -161,9 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(HomeScreen.routeName);
-                        },
+                      onPressed: login,
                       child: isLoading
                           ? CircularProgressIndicator(color: Colors.white)
                           : Text(
