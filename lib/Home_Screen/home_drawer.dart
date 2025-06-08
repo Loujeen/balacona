@@ -4,6 +4,10 @@ import 'package:testttt/screens/community_screen.dart';
 
 import '../App_Colors.dart';
 import 'package:testttt/Home_Screen/Home_Screen.dart';
+import 'package:testttt/screens/GameScreen.dart';
+import 'package:testttt/screens/add_plant/plant_list_tab.dart';
+
+import '../LoginSignup.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -43,6 +47,7 @@ class HomeDrawer extends StatelessWidget {
           _buildDrawerItem(Icons.videogame_asset, 'Play to win!', context),
           _buildDrawerItem(Icons.info, 'Info', context),
           _buildDrawerItem(Icons.local_florist, 'My Plants', context),
+          _buildDrawerItem(Icons.logout, 'Log out', context),
         ],
       ),
     );
@@ -76,13 +81,16 @@ class HomeDrawer extends StatelessWidget {
             Navigator.of(context).pushNamed(CommunityScreen.routeName);
             break;
           case 'Play to win!':
-            Navigator.of(context).pushNamed('/game');
+            Navigator.of(context).pushNamed(GameScreen.routeName);
             break;
           case 'Info':
             Navigator.of(context).pushNamed('/info');
             break;
           case 'My Plants':
-            Navigator.of(context).pushNamed('/my-plants');
+            Navigator.of(context).pushNamed(TaskListTab.routeName);
+            break;
+          case 'Log out':
+            Navigator.of(context).pushNamed(LoginSignup.routeName);
             break;
         }
       },
