@@ -7,44 +7,45 @@ class Post {
   final int likes;
   final int comments;
   final int shares;
+  final String username;
 
   Post({
     required this.caption,
     this.quoted,
     required this.timestamp,
-    this.likes = 0,
-    this.comments = 0,
-    this.shares = 0,
+    required this.likes,
+    required this.comments,
+    required this.shares,
+    required this.username,
   });
 
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
-      caption: map['caption'] ?? '',
+      caption: map['caption'],
       quoted: map['quoted'],
-      timestamp: map['timestamp'] ?? Timestamp.now(),
+      timestamp: map['timestamp'],
       likes: map['likes'] ?? 0,
       comments: map['comments'] ?? 0,
       shares: map['shares'] ?? 0,
+      username: map['username'] ?? 'Anonymous',
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'caption': caption,
-      'quoted': quoted,
-      'timestamp': timestamp,
-      'likes': likes,
-      'comments': comments,
-      'shares': shares,
-    };
-  }
 
   String get timeAgo {
     final now = DateTime.now();
     final difference = now.difference(timestamp.toDate());
-    if (difference.inMinutes < 1) return "Just now";
-    if (difference.inMinutes < 60) return "${difference.inMinutes}m";
-    if (difference.inHours < 24) return "${difference.inHours}h";
-    return "${difference.inDays}d";
+
+    if (difference.inMinutes < 60) {
+      return "${difference.inMinutes}m ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours}h ago";
+    } else {
+      return "${difference.inDays}d ago";
+    }
   }
 }
+
+
+
+

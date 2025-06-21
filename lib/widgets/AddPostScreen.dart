@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
@@ -17,6 +18,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
     final quoted = quotedController.text.trim();
     if (caption.isEmpty) return;
 
+    final user = FirebaseAuth.instance.currentUser;
+    final username = user?.displayName ?? user?.email ?? 'Anonymous';
+
     await FirebaseFirestore.instance.collection('posts').add({
       'caption': caption,
       'quoted': quoted.isNotEmpty ? quoted : null,
@@ -24,11 +28,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
       'likes': 0,
       'comments': 0,
       'shares': 0,
+      'username': username,
     });
 
-
-    Navigator.pop(context); // يرجع للشاشة السابقة
+    Navigator.pop(context);
   }
+
 
   @override
   Widget build(BuildContext context) {

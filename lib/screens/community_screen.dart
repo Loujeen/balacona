@@ -55,10 +55,10 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
       body: Column(
         children: [
-          TabBarSection(),
+          SizedBox(height: MediaQuery.of(context).size.height*0.02),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('posts').orderBy('timeAgo').snapshots(),
+              stream: FirebaseFirestore.instance.collection('posts').orderBy('timestamp', descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());

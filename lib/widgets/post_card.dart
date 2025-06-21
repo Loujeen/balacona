@@ -28,7 +28,8 @@ class PostCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(post.username, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+
                   Text('@handle • ${post.timeAgo}', style: TextStyle(color: AppColors.DarkGreyColor, fontSize: 14)),
                 ],
               ),
