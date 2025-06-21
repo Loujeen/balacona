@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:testttt/App_Colors.dart';
 import 'package:testttt/Home_Screen/Home_Screen.dart';
 import 'package:testttt/Register/registerScreen.dart';
@@ -58,8 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      // ✅ Set user in AuthUserProvider
+      // تحديث المستخدم في Provider
       Provider.of<AuthUserProvider>(context, listen: false).updateUser(user);
+
+      // اقرأ بيانات الموقع والطقس من SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      final savedLocation = prefs.getString('user_location') ?? 'Your Location';
+      final savedWeather = prefs.getString('user_weather') ?? '';
 
       DialogUtils.hideLoading(context);
 
@@ -69,7 +75,13 @@ class _LoginScreenState extends State<LoginScreen> {
         content: 'Login Successfully.',
         posActionName: 'OK',
         posAction: () {
-          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+          Navigator.of(context).pushReplacementNamed(
+            HomeScreen.routeName,
+            arguments: {
+              'location': savedLocation,
+              'weather': savedWeather,
+            },
+          );
         },
       );
       print("✅ Login Successfully.");

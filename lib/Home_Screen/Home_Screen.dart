@@ -20,11 +20,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String locationText = 'Loading weather...';
+  String? passedLocation;
+  String? passedWeather;
 
   @override
-  void initState() {
-    super.initState();
-    fetchWeather();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (args != null) {
+      passedLocation = args['location'] as String?;
+      passedWeather = args['weather'] as String?;
+    }
+
+    if (passedLocation != null && passedWeather != null) {
+      setState(() {
+        locationText = '$passedLocation\n$passedWeather';
+      });
+    } else {
+      fetchWeather();
+    }
   }
 
   void fetchWeather() async {
@@ -51,10 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Stack(
       children: [
         Container(
-          child: Image.asset("assets/images/Home.png",
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.fill),
+          child: Image.asset(
+            "assets/images/Home.png",
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.fill,
+          ),
         ),
         Scaffold(
           key: _scaffoldKey,
@@ -99,13 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: 'Hi Peach Cat.\n',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                      TextSpan(
-                        text: 'Smouha, Alexandria\n',
-                        style: TextStyle(
-                            color: AppColors.primaryDarkColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
+
                       TextSpan(
                         text: locationText,
                         style: TextStyle(
