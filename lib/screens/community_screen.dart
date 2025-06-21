@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:testttt/App_Colors.dart';
 import 'package:testttt/Home_Screen/home_drawer.dart';
+import '../widgets/AddPostScreen.dart';
 import '../widgets/post_card.dart';
 import '../widgets/tab_bar_section.dart';
 import '../models/post.dart';
@@ -40,18 +42,43 @@ class _CommunityScreenState extends State<CommunityScreen> {
         ),
         centerTitle: true,
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primaryLightColor,
+        child: Icon(Icons.add, color: AppColors.primaryDarkColor),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddPostScreen()),
+          );
+        },
+      ),
+
       body: Column(
         children: [
-          TabBarSection(),
+          SizedBox(height: MediaQuery.of(context).size.height*0.02),
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              itemCount: posts.length,
-              itemBuilder: (context, index) {
-                return PostCard(post: posts[index]);
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('posts').orderBy('timestamp', descending: true).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                final data = snapshot.data?.docs ?? [];
+
+                return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    final doc = data[index];
+                    final post = Post.fromMap(doc.data() as Map<String, dynamic>);
+                    return PostCard(post: post, postId: doc.id);
+                  },
+                );
+
               },
             ),
           ),
+
         ],
       ),
     );

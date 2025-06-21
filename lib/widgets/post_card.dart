@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:testttt/App_Colors.dart';
 import '../models/post.dart';
 
 class PostCard extends StatelessWidget {
+  final String postId;
   final Post post;
-  const PostCard({super.key, required this.post});
+
+  const PostCard({super.key, required this.post, required this.postId});
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,8 @@ class PostCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(post.username, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+
                   Text('@handle • ${post.timeAgo}', style: TextStyle(color: AppColors.DarkGreyColor, fontSize: 14)),
                 ],
               ),
@@ -47,19 +52,25 @@ class PostCard extends StatelessWidget {
             children: [
               Icon(Icons.comment, size: 21, color: AppColors.DarkGreyColor),
               SizedBox(width: MediaQuery.of(context).size.width*0.01),
-              Text("11", style: TextStyle(fontSize: 14)),
+              Text("${post.comments}", style: TextStyle(fontSize: 14)),
               SizedBox(width: MediaQuery.of(context).size.width*0.05),
               Icon(Icons.repeat, size: 21, color: AppColors.DarkGreyColor),
               SizedBox(width: MediaQuery.of(context).size.width*0.01),
-              Text("270", style: TextStyle(fontSize: 14)),
+              Text("${post.shares}", style: TextStyle(fontSize: 14)),
               SizedBox(width: MediaQuery.of(context).size.width*0.05),
-              Icon(Icons.favorite_border, size: 21, color: AppColors.DarkGreyColor),
-              SizedBox(width: MediaQuery.of(context).size.width*0.01),
-              Text("1,869", style: TextStyle(fontSize: 14)),
+              GestureDetector(
+                onTap: () async {
+                  final postRef = FirebaseFirestore.instance.collection('posts').doc(postId);
+                  await postRef.update({'likes': FieldValue.increment(1)});
+                },
+                child: Icon(Icons.favorite_border, size: 21, color: AppColors.DarkGreyColor),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+              Text("${post.likes}", style: TextStyle(fontSize: 14)),
+
               SizedBox(width: MediaQuery.of(context).size.width*0.05),
-              Icon(Icons.bar_chart, size: 21, color: AppColors.DarkGreyColor),
+
               SizedBox(width: MediaQuery.of(context).size.width*0.01),
-              Text("99.6k", style: TextStyle(fontSize: 14)),
               Spacer(),
               Icon(Icons.share_outlined, size: 21, color: AppColors.DarkGreyColor),
             ],
