@@ -8,6 +8,7 @@ import 'package:testttt/screens/GameScreen.dart';
 import 'package:testttt/screens/add_plant/plant_list_tab.dart';
 
 import '../LoginSignup.dart';
+import 'package:testttt/disease_prediction_page.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -41,13 +42,14 @@ class HomeDrawer extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           _buildDrawerItem(Icons.home, 'Home', context),
-          _buildDrawerItem(Icons.photo_camera, 'Capture your plant', context),
+          _buildDrawerItem(Icons.dangerous_outlined, 'Disease Detection', context),
           _buildDrawerItem(Icons.person, 'Profile', context),
           _buildDrawerItem(Icons.group, 'Communities', context),
           _buildDrawerItem(Icons.videogame_asset, 'Play to win!', context),
           _buildDrawerItem(Icons.info, 'Info', context),
           _buildDrawerItem(Icons.local_florist, 'My Plants', context),
           _buildDrawerItem(Icons.logout, 'Log out', context),
+          _buildDrawerItem(Icons.bug_report_outlined, 'Pests Detection', context),
         ],
       ),
     );
@@ -71,8 +73,8 @@ class HomeDrawer extends StatelessWidget {
           case 'Home':
             Navigator.of(context).pushNamed(HomeScreen.routeName);;
             break;
-          case 'Capture your plant':
-            Navigator.of(context).pushNamed('/capture');
+          case 'Disease Detection':
+            Navigator.of(context).pushNamed(DiseasePredictionPage.routeName);
             break;
           case 'Profile':
             Navigator.of(context).pushNamed(ProfileScreen.routeName);
@@ -91,6 +93,9 @@ class HomeDrawer extends StatelessWidget {
             break;
           case 'Log out':
             Navigator.of(context).pushNamed(LoginSignup.routeName);
+            break;
+          case 'pests detection':
+            Navigator.of(context).pushNamed(DiseasePredictionPage.routeName);
             break;
         }
       },

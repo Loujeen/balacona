@@ -22,6 +22,7 @@ import 'Profile/edit_information.dart';
 import 'Profile/profileScreen.dart';
 import 'search_screen.dart';
 import 'screens/add_plant/plant_list_tab.dart';
+import 'disease_prediction_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
               PopularPlantScreen.routeName: (context) => PopularPlantScreen(),
               GameScreen.routeName: (context) => GameScreen(),
               TaskListTab.routeName: (context) => TaskListTab(),
+              DiseasePredictionPage.routeName:(context)=>DiseasePredictionPage()
             },
           );
         },
