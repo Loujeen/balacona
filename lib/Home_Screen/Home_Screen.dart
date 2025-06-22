@@ -1,12 +1,14 @@
-// HomeScreen.dart
-import '../api/plant_api.dart';
-import '../models/plant.dart';
 import 'package:flutter/material.dart';
 import 'package:testttt/Home_Screen/LearnAboutPlants.dart';
 import 'package:testttt/Home_Screen/Popularplant.dart';
 import 'package:testttt/Home_Screen/home_drawer.dart';
 import 'package:testttt/search_screen.dart';
+import 'package:testttt/weather_service.dart';
+import 'package:geolocator/geolocator.dart';
+
 import '../App_Colors.dart';
+import '../api/plant_api.dart';
+import '../models/plant.dart';
 import 'know_about_plants_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late Future<List<Plant>> futurePlants;
 
+  String locationText = 'Loading weather...';
+  String? passedLocation;
+  String? passedWeather;
+
   @override
   void initState() {
     super.initState();
@@ -28,12 +34,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (args != null) {
+      passedLocation = args['location'] as String?;
+      passedWeather = args['weather'] as String?;
+    }
+
+    if (passedLocation != null && passedWeather != null) {
+      setState(() {
+        locationText = '$passedLocation\n$passedWeather';
+      });
+    } else {
+      setState(() {
+        locationText = 'Smouha, Alexandria\n24°C';
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          child: Image.asset("assets/images/Home.png", width: double.infinity, height: double.infinity, fit: BoxFit.fill),
-        ),
+        Image.asset("assets/images/Home.png", width: double.infinity, height: double.infinity, fit: BoxFit.fill),
         Scaffold(
           key: _scaffoldKey,
           drawer: HomeDrawer(),
@@ -43,9 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 0,
             leading: IconButton(
               icon: Icon(Icons.menu, color: AppColors.primaryDarkColor),
-              onPressed: () {
-                _scaffoldKey.currentState?.openDrawer();
-              },
+              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
             ),
             centerTitle: true,
             title: Text(
@@ -66,32 +89,28 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text.rich(
                   TextSpan(
                     children: [
+                      TextSpan(text: 'Hi Peach Cat.\n', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                       TextSpan(
-                        text: 'Hi Peach Cat.\n',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      TextSpan(
-                        text: 'Smouha, Alexandria\n',
-                        style: TextStyle(color: AppColors.primaryDarkColor, fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: '24°C',
-                        style: TextStyle(color: AppColors.primaryDarkColor, fontSize: 18, fontWeight: FontWeight.bold),
+                        text: locationText,
+                        style: TextStyle(
+                          color: AppColors.primaryDarkColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: 16),
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-                /// Know About Plants Section
+                // Know about Plants
                 Text('Know about Plants', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 SizedBox(height: 8),
                 FutureBuilder<List<Plant>>(
@@ -102,25 +121,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: plants.map((plants) {
+                        children: plants.map((plant) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed(
-                                KnowAboutPlantsScreen.routeName,
-                                arguments: plants,
-                              );
+                              Navigator.of(context).pushNamed(KnowAboutPlantsScreen.routeName, arguments: plant);
                             },
-                            child: _imageBoxFromNetwork(plants.image),
+                            child: _imageBoxFromNetwork(plant.image),
                           );
                         }).toList(),
                       ),
                     );
                   },
                 ),
-
                 SizedBox(height: 16),
 
-                /// Learn About Plants Section
+                // Learn about Plants
                 Text('Learn about Plants', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 SizedBox(height: 8),
                 FutureBuilder<List<Plant>>(
@@ -131,28 +146,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: plants.map((plants) {
+                        children: plants.map((plant) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed(
-                                LearnAboutPlantScreen.routeName,
-                                arguments: plants,
-                              );
+                              Navigator.of(context).pushNamed(LearnAboutPlantScreen.routeName, arguments: plant);
                             },
-                            child: _learnPlantItem(
-                              title: plants.name,
-                              imageUrl: plants.image,
-                            ),
+                            child: _learnPlantItem(title: plant.name, imageUrl: plant.image),
                           );
                         }).toList(),
                       ),
                     );
                   },
                 ),
-
                 SizedBox(height: 16),
 
-                /// Popular Plants Section
+                // Popular Plants
                 Text('Popular Plants', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 SizedBox(height: 8),
                 FutureBuilder<List<Plant>>(
@@ -163,46 +171,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: plants.map((plants) {
+                        children: plants.map((plant) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed(
-                                PopularPlantScreen.routeName,
-                                arguments: plants,
-                              );
+                              Navigator.of(context).pushNamed(PopularPlantScreen.routeName, arguments: plant);
                             },
-                            child: _scrollablePlantCard(plants.name, plants.description, plants.image),
+                            child: _scrollablePlantCard(plant.name, plant.description, plant.image),
                           );
                         }).toList(),
                       ),
                     );
                   },
                 ),
+                SizedBox(height: 16),
 
-                SizedBox(height: 20),
-
-                /// Seasonal Plants (Optional Static)
+                // Seasonal Plants (Static)
                 Text('Seasonal Plants', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 SizedBox(height: 8),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      _scrollablePlantCard(
-                        'Yarrow',
-                        'Summer plant, less water required',
-                        'https://example.com/image1.png',
-                      ),
-                      _scrollablePlantCard(
-                        'Ageratum',
-                        'Winter plant, minimum water needed',
-                        'https://example.com/image2.png',
-                      ),
-                      _scrollablePlantCard(
-                        'Lavender',
-                        'Lovely scent and drought-resistant',
-                        'https://example.com/image3.png',
-                      ),
+                      _scrollablePlantCard('Yarrow', 'Summer plant, less water required', 'https://example.com/image1.png'),
+                      _scrollablePlantCard('Ageratum', 'Winter plant, minimum water needed', 'https://example.com/image2.png'),
+                      _scrollablePlantCard('Lavender', 'Lovely scent and drought-resistant', 'https://example.com/image3.png'),
                     ],
                   ),
                 ),
@@ -211,14 +203,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
 
-        /// Floating Camera Button
+        // Camera Button
         Positioned(
           bottom: 30,
           right: 20,
           child: ElevatedButton(
-            onPressed: () {
-              print('Camera button pressed');
-            },
+            onPressed: () => print('Camera button pressed'),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.GreenColor,
               shape: CircleBorder(),
@@ -239,10 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
       height: 100,
       margin: EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.cover,
-        ),
+        image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(16),
       ),
     );
@@ -258,46 +245,42 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              imageUrl,
-              height: 100,
-              width: 140,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Icon(Icons.error, color: Colors.red),
-            ),
-          ),
-          SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              title,
-              style: TextStyle(
-                color: AppColors.primaryLightColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ),
-          SizedBox(height: 4),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              subtitle,
-              style: TextStyle(
-                color: AppColors.primaryLightColor,
-                fontSize: 12,
-                height: 1.4,
-              ),
-            ),
-          ),
-        ],
-      ),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+      ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Image.network(
+          imageUrl,
+          height: 100,
+          width: 140,
+          fit: BoxFit.cover,
+          errorBuilder: (_, _, _) => Icon(Icons.error, color: Colors.red),
+    ),
+    ),
+    SizedBox(height: 10),
+    Align(
+    alignment: Alignment.centerLeft,
+    child: Text(
+    title,
+    style: TextStyle(
+    color: AppColors.primaryLightColor,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+    ),
+    ),
+    ),
+    SizedBox(height: 4),
+    Align(
+    alignment: Alignment.centerLeft,
+    child: Text(
+    subtitle,
+    style: TextStyle(color: AppColors.primaryLightColor, fontSize: 12, height: 1.4),
+    ),
+    ),
+    ],
+    ),
     );
-  }
+    }
 
   Widget _learnPlantItem({required String title, required String imageUrl}) {
     return Container(
@@ -306,30 +289,27 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         color: AppColors.primaryDarkColor,
         borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              imageUrl,
-              width: 40,
-              height: 40,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Icon(Icons.error, color: Colors.white),
-            ),
-          ),
-          SizedBox(width: 8),
-          Text(
-            title,
-            style: TextStyle(
-              color: AppColors.primaryLightColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4, offset: Offset(2, 2)),
         ],
       ),
+      child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+      ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.network(
+          imageUrl,
+          width: 40,
+          height: 40,
+          fit: BoxFit.cover,
+          errorBuilder: (_, _, _) => Icon(Icons.error, color: Colors.white),
+    ),
+    ),
+    SizedBox(width: 8),
+    Text(title, style: TextStyle(color: AppColors.primaryLightColor, fontWeight: FontWeight.bold)),
+    ],
+    ),
     );
   }
 }

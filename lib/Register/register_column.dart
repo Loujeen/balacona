@@ -7,6 +7,8 @@ import 'package:testttt/firebase_utils.dart';
 import 'package:testttt/model/my_user.dart';
 import 'package:testttt/providers/auth_user_provider.dart';
 import 'package:testttt/dialog_utils.dart';
+import 'package:testttt/screens/location_screen.dart';
+
 
 class RegisterColumn extends StatefulWidget {
   const RegisterColumn({super.key});
@@ -243,11 +245,24 @@ class _RegisterColumnState extends State<RegisterColumn> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () => register(context),
+                    onPressed: () {
+                      if (formKey.currentState?.validate() != true) return;
+
+                      Navigator.pushNamed(
+                        context,
+                        LocationScreen.routeName,
+                        arguments: {
+                          'name': fullNameController.text,
+                          'email': emailController.text,
+                          'password': passwordController.text,
+                        },
+                      );
+                    },
+
                     child: Text(
-                      'Sign up',
+                      'Next',
                       style: TextStyle(
-                          fontSize: 18, color: AppColors.LightButtonColor),
+                          fontSize: 22, color: AppColors.LightButtonColor),
                     ),
                   ),
                 ),
