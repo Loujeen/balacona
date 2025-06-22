@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testttt/App_Colors.dart';
+import '../models/plant.dart';
 
 class KnowAboutPlantsScreen extends StatelessWidget {
   const KnowAboutPlantsScreen({super.key});
@@ -7,6 +8,9 @@ class KnowAboutPlantsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // استلام كائن الـ plant اللي جاي من الشاشة السابقة
+    final Plant plants = ModalRoute.of(context)!.settings.arguments as Plant;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: AppColors.primaryLightColor,
@@ -36,7 +40,6 @@ class KnowAboutPlantsScreen extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              // padding: EdgeInsets.only(top: 100),
               height: MediaQuery.of(context).size.height * 0.30,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -46,81 +49,66 @@ class KnowAboutPlantsScreen extends StatelessWidget {
                 ),
               ),
             ),
-        
-        
+
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.20,),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.20),
+
                   Center(
                     child: Container(
                       width: 190,
-                      height:190,
+                      height: 190,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: Colors.white, width: 4),
                         image: DecorationImage(
-                          image: AssetImage("assets/images/pot.png"),
+                          image: NetworkImage(plants.image),
                           fit: BoxFit.fill,
                         ),
                       ),
                     ),
                   ),
-        
-                  SizedBox(height: MediaQuery.of(context).size.height*0.025),
-        
-        
+
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+
                   Center(
                     child: Column(
                       children: [
                         Text(
-                          'Ginkgo',
+                          plants.name,
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Ginkgo biloba',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.DarkGreyColor,
-                          ),
-                        ),
+
                       ],
                     ),
                   ),
-        
-                  SizedBox(height: MediaQuery.of(context).size.height*0.02),
-        
-        
+
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
+                      plants.description,
                       textAlign: TextAlign.center,
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-                          'Turpis dictum egestas dolor egestas. Netus pharetra, '
-                          'rhoncus tortor duis sit. In ipsum diam orci morbi ultrices '
-                          'massa amet. Aenean urna phasellus eget vestibulum, '
-                          'vulputate dui auctor sed est. Lorem ipsum dolor sit amet, '
-                          'consectetur adipiscing elit. Turpis dictum egestas dolor egestas.',
                       style: TextStyle(
                         fontSize: 15,
                         height: 1.7,
                       ),
                     ),
                   ),
-        
-                  SizedBox(height: MediaQuery.of(context).size.height*0.05),
-        
-        
+
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Pictures of Ginkgo',
+                        'Pictures of ${plants.name}',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -129,19 +117,18 @@ class KnowAboutPlantsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-        
-        
-                  SizedBox(height: MediaQuery.of(context).size.height*0.02),
-        
+
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*0.1,
+                    height: MediaQuery.of(context).size.height * 0.1,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       children: [
-                        buildSmallImage('assets/images/pot.png'),
-                        buildSmallImage('assets/images/pot.png'),
-                        buildSmallImage('assets/images/pot.png'),
+                        buildSmallImage(plants.image),
+                        buildSmallImage(plants.image),
+                        buildSmallImage(plants.image),
                       ],
                     ),
                   ),
@@ -154,7 +141,6 @@ class KnowAboutPlantsScreen extends StatelessWidget {
     );
   }
 
-
   Widget buildSmallImage(String url) {
     return Container(
       margin: EdgeInsets.only(right: 15),
@@ -163,11 +149,12 @@ class KnowAboutPlantsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         image: DecorationImage(
-          image: AssetImage(url),
+          image: NetworkImage(url),
           fit: BoxFit.cover,
         ),
       ),
     );
   }
 }
+
 

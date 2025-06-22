@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../App_Colors.dart';
+import '../models/plant.dart';
 
 class LearnAboutPlantScreen extends StatelessWidget {
   const LearnAboutPlantScreen({super.key});
@@ -7,6 +8,8 @@ class LearnAboutPlantScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Plant plants = ModalRoute.of(context)!.settings.arguments as Plant;
+
     final media = MediaQuery.of(context).size;
     final screenWidth = media.width;
     final screenHeight = media.height;
@@ -48,11 +51,11 @@ class LearnAboutPlantScreen extends StatelessWidget {
                     Container(
                       width: screenWidth * 0.1,
                       height: screenWidth * 0.1,
-                      child: Image.asset("assets/images/pot.png", fit: BoxFit.contain),
+                      child: Image.network(plants.image, fit: BoxFit.contain),
                     ),
                     SizedBox(width: screenWidth * 0.02),
                     Text(
-                      'Coleus',
+                      plants.name,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: screenWidth * 0.045,
@@ -67,9 +70,8 @@ class LearnAboutPlantScreen extends StatelessWidget {
             SizedBox(height: screenHeight * 0.04),
 
             Text(
+              plants.description,
               textAlign: TextAlign.center,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis dictum egestas dolor egestas. Netus pharetra, rhoncus tortor duis sit. ''In ipsum diam orci morbi ultrices massa amet. Aenean urna phasellus eget vestibulum, vulputate dui auctor sed est. '
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis dictum egestas dolor egestas.',
               style: TextStyle(
                 fontSize: 16,
                 height: 1.6,
@@ -83,11 +85,14 @@ class LearnAboutPlantScreen extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Image.asset(
-                    "assets/images/pot.png",
+                  Image.network(
+                    plants.image,
                     height: screenHeight * 0.4,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(Icons.broken_image, size: 80, color: Colors.red);
+                    },
                   ),
                   Container(
                     decoration: BoxDecoration(
